@@ -11,17 +11,32 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleLoadAll = () => {
-    getAll().then(setGoods);
-  };
+  const handleLoadAll = React.useCallback(() => {
+    getAll()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching goods:', error);
+      });
+  }, []);
 
-  const handleLoad5First = () => {
-    get5First().then(setGoods);
-  };
+  const handleLoad5First = React.useCallback(() => {
+    get5First()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching 5 first goods:', error);
+      });
+  }, []);
 
-  const handleLoadRed = () => {
-    getRedGoods().then(setGoods);
-  };
+  const handleLoadRed = React.useCallback(() => {
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching red goods:', error);
+      });
+  }, []);
 
   return (
     <div className="App">
